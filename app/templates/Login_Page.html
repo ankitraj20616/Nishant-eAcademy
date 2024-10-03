@@ -40,7 +40,30 @@
       </form>
     </div>
     <div class="sign-up-form">
-      <input type="text" />
+      <label for="first-name">First Name</label>
+      <input type="text" name="first-name" id="first-name" required />
+
+      <label for="last-name">First Name</label>
+      <input type="text" name="last-name" id="last-name" required />
+
+      <label for="phone-number">Phone Number</label>
+      <input type="tel" id="phn-num" name="phn-num" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+
+      <label for="confirm-password">Password</label>
+      <input
+        type="password"
+        id="confirm-password"
+        name="confirm-password"
+        required
+      />
+
+      <label for="state">State</label>
+      <input type="text" name="state" id="state" required />
+
+      <button type="submit">Sign-Up</button>
     </div>
     <script src="{{url_for('static', path='js/Login_SignUp.js')}}"></script>
   </body>
