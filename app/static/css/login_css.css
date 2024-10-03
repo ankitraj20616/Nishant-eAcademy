@@ -1,0 +1,50 @@
+body {
+  background-image: url(https://think360studio-media.s3.ap-south-1.amazonaws.com/photo/plugin/article/2021/india-flag-wallpaper-2021-1-12082021.png);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.site_logo {
+  width: 100px;
+  height: 100px;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.hidden {
+  display: none;
+}
