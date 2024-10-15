@@ -1,0 +1,113 @@
+/* Body Styles */
+body {
+  background-image: url(https://think360studio-media.s3.ap-south-1.amazonaws.com/photo/plugin/article/2021/india-flag-wallpaper-2021-1-12082021.png);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Set a clean font for the entire page */
+}
+
+/* Header Styles */
+header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.site_logo {
+  width: 120px; /* Slightly larger logo */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Container for Buttons */
+.button_container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px; /* Spacing between buttons and forms */
+}
+
+/* General Form Styles */
+div {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Slightly more opaque background */
+  padding: 40px; /* Increased padding for better spacing */
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
+}
+
+/* Headings */
+h2 {
+  text-align: center;
+  margin-bottom: 25px; /* Space below title */
+  color: #6200ea; /* Primary color for titles */
+  font-size: 24px; /* Larger title font */
+}
+
+/* Button Styles */
+button {
+  margin: 10px 5px; /* Margin for spacing */
+  padding: 12px 24px; /* Larger padding */
+  font-size: 16px; /* Font size for buttons */
+  border: none;
+  border-radius: 8px; /* Rounded buttons */
+  cursor: pointer;
+  background-color: #6200ea; /* Primary color */
+  color: white;
+  transition: background-color 0.3s, transform 0.3s; /* Add transform for a subtle effect */
+  width: 120px; /* Fixed width for buttons */
+}
+
+button:hover {
+  background-color: #3700b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="tel"],
+input[type="password"] {
+  width: 100%; /* Full width input fields */
+  padding: 12px; /* Padding for input fields */
+  margin: 10px 0; /* Space between input fields */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+input:focus {
+  border-color: #6200ea; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+/* Additional form styles */
+.hidden {
+  display: none; /* Keep hidden class for toggling forms */
+}
+
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+  body {
+    padding: 10px; /* Add padding on smaller screens */
+  }
+
+  div {
+    width: 90%; /* Responsive form width */
+  }
+
+  button {
+    width: 100%; /* Full width buttons */
+  }
+}
