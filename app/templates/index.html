@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechSciCoach - Elevate Your Tech & Science Career</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', path='css/style.css') }}"
+    />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <i data-lucide="atom"></i>
+                <span>TechSciCoach</span>
+            </a>
+            <nav>
+                <a href="#">Programs</a>
+                <a href="#">Experts</a>
+                <a href="#">About</a>
+                <button class="btn btn-outline">
+                    <i data-lucide="log-in"></i>
+                    Log In
+                </button>
+                <button class="btn btn-primary">
+                    <i data-lucide="user-plus"></i>
+                    Sign Up
+                </button>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h1>Elevate Your Tech & Science Career</h1>
+                <p>Expert e-coaching in programming, data science, research, and more. Accelerate your growth in the world of technology and science.</p>
+                
+                <div class="image-gallery">
+                    <div class="gallery-container">
+                        <img src="{{ url_for('static', path='image/coding_session.png') }}" alt="Coding session">
+                        <img src="{{ url_for('static', path='image/scientific_experiment.png') }}" alt="Scientific experiment">
+                        <img src="{{ url_for('static', path='image/data_analysis.png') }}" alt="Data analysis">
+                        <img src="{{ url_for('static', path='image/tech_workshop.png') }}" alt="Tech workshop">
+                        <img src="{{ url_for('static', path='image/research_presentation.png') }}" alt="Research presentation">
+                    </div>
+                    <button class="gallery-nav prev" aria-label="Previous image">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button class="gallery-nav next" aria-label="Next image">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="features">
+                <h2>Why Choose TechSciCoach?</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i data-lucide="code"></i>
+                        <h3>Expert Tech Mentors</h3>
+                        <p>Learn from industry professionals with years of experience in cutting-edge technologies.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i data-lucide="flask"></i>
+                        <h3>Scientific Approach</h3>
+                        <p>Benefit from coaching methods grounded in research and proven learning techniques.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i data-lucide="bar-chart"></i>
+                        <h3>Career Advancement</h3>
+                        <p>Accelerate your career growth with personalized guidance and industry insights.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 TechSciCoach. All rights reserved.</p>
+            <nav>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy</a>
+            </nav>
+        </footer>
+    </div>
+    <script src="{{url_for('static', path='js/main.js')}}"></script>
+</body>
+</html>
