@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nishant-eAcademy</title>
-    <link rel="icon" type="image/x-icon" href="{{url_for('static', path='images/logo.png')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/style.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/bootstrap.min.css') }}" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{url_for('static', path='images/logo.png')}}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', path='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', path='css/bootstrap.min.css') }}"
+    />
     <script src="{{url_for('static', path='js/jquery.min.js')}}"></script>
     <script src="{{url_for('static', path='js/bootstrap.min.js')}}"></script>
   </head>
@@ -15,7 +27,11 @@
       <header>
         <div class="row">
           <div class="col-md-1">
-          <img src="{{url_for('static', path='images/logo.png')}}" height="50" width="50">
+            <img
+              src="{{url_for('static', path='images/logo.png')}}"
+              height="50"
+              width="50"
+            />
           </div>
           <div class="col-md-6">
             <span class="logo">Nishant-eAcademy</span>
@@ -32,10 +48,10 @@
           <li>
             <span id="aboutID">About</span>
           </li>
-          <li style="float:right">
+          <li style="float: right">
             <span class="active" id="loginID">Log In</span>
           </li>
-          <li style="float:right">
+          <li style="float: right">
             <span id="signUp">Sign Up</span>
           </li>
         </ul>
@@ -43,14 +59,32 @@
       <main>
         <section class="hero">
           <h1>Elevate Your Tech & Science Career</h1>
-          <p>Expert e-coaching in programming, data science, research, and more. Accelerate your growth in the world of technology and science.</p>
+          <p>
+            Expert e-coaching in programming, data science, research, and more.
+            Accelerate your growth in the world of technology and science.
+          </p>
           <div class="image-gallery">
             <div class="gallery-container">
-              <img src="{{ url_for('static', path='images/coding_session.png') }}" alt="Coding session">
-              <img src="{{ url_for('static', path='images/scientific_experiment.png') }}" alt="Scientific experiment">
-              <img src="{{ url_for('static', path='images/data_analysis.png') }}" alt="Data analysis">
-              <img src="{{ url_for('static', path='images/tech_workshop.png') }}" alt="Tech workshop">
-              <img src="{{ url_for('static', path='images/research_presentation.png') }}" alt="Research presentation">
+              <img
+                src="{{ url_for('static', path='images/coding_session.png') }}"
+                alt="Coding session"
+              />
+              <img
+                src="{{ url_for('static', path='images/scientific_experiment.png') }}"
+                alt="Scientific experiment"
+              />
+              <img
+                src="{{ url_for('static', path='images/data_analysis.png') }}"
+                alt="Data analysis"
+              />
+              <img
+                src="{{ url_for('static', path='images/tech_workshop.png') }}"
+                alt="Tech workshop"
+              />
+              <img
+                src="{{ url_for('static', path='images/research_presentation.png') }}"
+                alt="Research presentation"
+              />
             </div>
             <button class="gallery-nav prev" aria-label="Previous image">
               <i data-lucide="chevron-left"></i>
@@ -66,17 +100,26 @@
             <div class="feature-card">
               <i data-lucide="code"></i>
               <h3>Expert Tech Mentors</h3>
-              <p>Learn from industry professionals with years of experience in cutting-edge technologies.</p>
+              <p>
+                Learn from industry professionals with years of experience in
+                cutting-edge technologies.
+              </p>
             </div>
             <div class="feature-card">
               <i data-lucide="flask"></i>
               <h3>Scientific Approach</h3>
-              <p>Benefit from coaching methods grounded in research and proven learning techniques.</p>
+              <p>
+                Benefit from coaching methods grounded in research and proven
+                learning techniques.
+              </p>
             </div>
             <div class="feature-card">
               <i data-lucide="bar-chart"></i>
               <h3>Career Advancement</h3>
-              <p>Accelerate your career growth with personalized guidance and industry insights.</p>
+              <p>
+                Accelerate your career growth with personalized guidance and
+                industry insights.
+              </p>
             </div>
           </div>
         </section>
@@ -90,70 +133,116 @@
       </footer>
 
       <!-- Signup Modal -->
-      <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModal" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="signUpModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="signUpModal"
+        aria-hidden="true"
+      >
         <form>
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Sign Up</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="inputEmail">Email<span class="red">*</span></label>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    <label for="inputFirstName"
+                      >First Name<span class="red">*</span></label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="inputFirstName"
+                      placeholder="First Name"
+                    />
                     <span class="error"></span>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="inputPassword">Password<span class="red">*</span></label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    <label for="inputLastName"
+                      >Last Name<span class="red">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputLastName"
+                      placeholder="Last Name"
+                    />
                     <span class="error"></span>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputAddress">Address</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                  <label for="inputPassword"
+                    >Password<span class="red">*</span></label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="inputPassword"
+                    placeholder="Your Password"
+                  />
                   <span class="error"></span>
                 </div>
                 <div class="form-group">
-                  <label for="inputAddress2">Address 2</label>
-                  <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                  <label for="inputConfirmPassword"
+                    >Confirm Password<span class="red">*</span></label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="inputConfirmPassword"
+                    placeholder="Enter Same Password Again"
+                  />
                   <span class="error"></span>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity">
-                    <span class="error"></span>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputState">State</label>
+                    <label for="inputState"
+                      >State<span class="red">*</span></label
+                    >
                     <select id="inputState" class="form-control">
-                      <option selected>Choose...</option>
-                      <option>...</option>
+                      <option value="Not_State">Choose...</option>
+                      <option value="Bihar">Bihar</option>
+                      <option value="Jharkhand">Jharkhand</option>
+                      <option value="UP">UP</option>
+                      <option value="MP">MP</option>
                     </select>
                     <span class="error"></span>
                   </div>
 
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="inputZip">Zip</label>
-                      <input type="text" class="form-control" id="inputZip">
-                      <span class="error"></span>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputZip">Phone No<span class="red">*</span></label>
-                      <input type="text" class="form-control" id="phnNo">
+                      <label for="phnNo"
+                        >Phone No<span class="red">*</span></label
+                      >
+                      <input type="text" class="form-control" id="phnNo" />
                       <span class="error"></span>
                     </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" id="signUpBtn">Sign Up</button>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-primary" id="signUpBtn">
+                    Sign Up
+                  </button>
+                  <span class="error"></span>
                 </div>
               </div>
             </div>
@@ -161,63 +250,123 @@
         </form>
       </div>
       <!-- Login Modal -->
-      <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="loginModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="loginModal"
+        aria-hidden="true"
+      >
         <form>
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label for="loginEmail">Email ID<span class="red">*</span></label>
-                  <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                  <label for="loginEmail"
+                    >Email ID<span class="red">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="loginEmail"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email"
+                  />
                   <span class="error"></span>
                 </div>
                 <div class="form-group">
-                  <label for="loginPasswork">Password<span class="red">*</span></label>
-                  <input type="password" class="form-control" id="loginPasswork" placeholder="Password">
+                  <label for="loginPasswork"
+                    >Password<span class="red">*</span></label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="loginPasswork"
+                    placeholder="Password"
+                  />
                   <span class="error"></span>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="loginBtn">LogIn</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary" id="loginBtn">
+                  LogIn
+                </button>
               </div>
             </div>
           </div>
         </form>
       </div>
       <!-- Verify Modal -->
-      <div class="modal fade" id="verifyOtp" tabindex="-1" role="dialog" aria-labelledby="verifyOtp" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="verifyOtp"
+        tabindex="-20"
+        role="dialog"
+        aria-labelledby="verifyOtp"
+        aria-hidden="true"
+      >
         <form>
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Verify OTP</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true" id="otpModalClose">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
                   <label for="opt">OTP<span class="red">*</span></label>
-                  <input type="email" class="form-control" id="opt" aria-describedby="emailHelp" placeholder="Enter email">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="otp"
+                    placeholder="Enter OTP"
+                  />
                   <span class="error"></span>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="verify">Verify</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  id="closeOtpModal"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary" id="verify">
+                  Verify
+                </button>
               </div>
             </div>
           </div>
         </form>
       </div>
-
     </div>
     <script src="{{url_for('static', path='js/main.js')}}"></script>
   </body>

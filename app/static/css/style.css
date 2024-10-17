@@ -273,12 +273,12 @@ h4,
   background-color: #f9f9f9;
 }
 .red {
-    color: #ff3860;
+  color: #ff3860;
 }
 .error {
-    color: #ff3860;
-    font-size: 9px;
-    height: 13px;
+  color: #ff3860;
+  font-size: 9px;
+  height: 13px;
 }
 /* Full-width inputs */
 input[type="text"],

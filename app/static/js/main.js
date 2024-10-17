@@ -1,101 +1,132 @@
-$(document).ready(function(){
-
-  $("#loginID").click(function(){
-    $(".error").text('')
+$(window).on("load", function () {
+  $("#loginID").on("click", function (e) {
+    e.preventDefault();
+    $(".error").text("");
     $("#loginModal").modal();
   });
 
-  $("#signUp").click(function(){
-    $(".error").text('')
+  $("#signUp").on("click", function (e) {
+    $(".error").text("");
     $("#signUpModal").modal();
   });
 
-
-  $("#signUpBtn").click(function(e){
+  $("#signUpBtn").on("click", function (e) {
     e.preventDefault();
     if (validateSignUpInputs() == false) {
-
-
+      $(".error").text("");
+      $("#signUpModal").modal("hide");
+      $("#verifyOtp").modal("show");
+      const signupData = fetchSignUpData();
+      $.post(`/send-otp/${signupData["phone_num"]}`);
     }
   });
 
-  $("#loginBtn").click(function(e){
+  $("#loginBtn").on("click", function (e) {
     e.preventDefault();
     if (validateLoginInputs() == false) {
-
-
     }
   });
 
-  $("#verify").click(function(e){
+  $("#verify").on("click", function (e) {
     e.preventDefault();
-    if (validateOTPInputs() == false) {
-
-
+    if (validateOtp() == false) {
+      const signupData = fetchSignUpData();
+      const otp = $("#otp").val();
+      $.ajax({
+        url: `/verify-otp?phone_num=${signupData["phone_num"]}&otp=${otp}`,
+        type: "post",
+        data: "",
+        success: function (result) {
+          if (result == true) {
+          }
+        },
+      });
     }
   });
 });
 
-function validateOTPInputs(){
-    var errorFlag = false
+function validateLoginInputs() {
+  var errorFlag = false;
 
-    var emailValue = $("#opt").val();
-    if(emailValue === '') {
-        $("#opt").next('.error').text("OPT is required.")
-        errorFlag = true
-    }
-    return errorFlag
+  var emailValue = $("#loginEmail").val();
+  if (emailValue === "") {
+    $("#loginEmail").next(".error").text("Email ID is required.");
+    errorFlag = true;
+  } else if (IsEmail(emailValue) === false) {
+    $("#loginEmail").next(".error").text("Entered Email is not Valid!!");
+    errorFlag = true;
+  }
+  return errorFlag;
 }
 
-function validateLoginInputs(){
-    var errorFlag = false
+function validateSignUpInputs() {
+  var errorFlag = false;
 
-    var emailValue = $("#loginEmail").val();
-    if(emailValue === '') {
-        $("#loginEmail").next('.error').text("Email ID is required.")
-        errorFlag = true
-    }
-    else if (IsEmail(emailValue) === false) {
-        $("#loginEmail").next('.error').text("Entered Email is not Valid!!");
-        errorFlag = true
-    }
-    return errorFlag
+  var inputFirstName = $("#inputFirstName").val();
+  if (inputFirstName === "") {
+    $("#inputFirstName").next(".error").text("First Name is required.");
+    errorFlag = true;
+  }
+
+  var inputLastName = $("#inputLastName").val();
+  if (inputLastName === "") {
+    $("#inputLastName").next(".error").text("Last Name is required.");
+    errorFlag = true;
+  }
+
+  var passwordValue = $("#inputPassword").val();
+  if (passwordValue === "") {
+    $("#inputPassword").next(".error").text("Password is required.");
+    errorFlag = true;
+  }
+
+  var confirmPassword = $("#inputConfirmPassword").val();
+  if (confirmPassword === "") {
+    $("#inputConfirmPassword")
+      .next(".error")
+      .text("Confirm password is required.");
+    errorFlag = true;
+  } else if (confirmPassword !== passwordValue) {
+    $("#inputConfirmPassword")
+      .next(".error")
+      .text("Password and Confirm must match!");
+    errorFlag = true;
+  }
+
+  var phoneValue = $("#phnNo").val();
+  if (phoneValue === "") {
+    $("#phnNo").next(".error").text("Phone No is required.");
+    errorFlag = true;
+  }
+
+  var state = $("#inputState").val();
+  if (state === "Not_State") {
+    $("#inputState").next(".error").text("Enter your state.");
+    errorFlag = true;
+  }
+
+  return errorFlag;
 }
 
-function validateSignUpInputs(){
-    var errorFlag = false
+function fetchSignUpData() {
+  const signupData = {
+    first_name: $("#inputFirstName").val(),
+    last_name: $("#inputLastName").val(),
+    phone_num: $("#phnNo").val(),
+    password: $("#inputPassword").val(),
+    confirm_password: $("#inputConfirmPassword").val(),
+    state: $("#inputState").val(),
+  };
 
-    var emailValue = $("#inputEmail").val();
-    if(emailValue === '') {
-        $("#inputEmail").next('.error').text("Email ID is required.")
-        errorFlag = true
-    }
-    else if (IsEmail(emailValue) === false) {
-        $("#inputEmail").next('.error').text("Entered Email is not Valid!!");
-        errorFlag = true
-    }
-
-    var passwordValue = $("#inputPassword").val();
-    if(passwordValue === '') {
-        $("#inputPassword").next('.error').text("Password is required.")
-        errorFlag = true
-    }
-
-    var phoneValue = $("#phnNo").val();
-    if(phoneValue === '') {
-        $("#phnNo").next('.error').text("Phone No is required.")
-        errorFlag = true
-    }
-
-    return errorFlag
+  return signupData;
 }
 
-function IsEmail(email) {
-    const regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (!regex.test(email)) {
-        return false;
-    }
-    else {
-        return true;
-    }
+function validateOtp() {
+  const errorFlag = false;
+  let otp = $("#opt").val();
+  if (otp === "") {
+    $("#otp").next(".error").text("Invalid OTP!");
+    errorFlag = true;
+  }
+  return errorFlag;
 }
