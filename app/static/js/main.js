@@ -1,4 +1,4 @@
-$(document).on("load", function () {
+$(window).on("load", function () {
   $("#loginID").on("click", function (e) {
     e.preventDefault();
     $(".error").text("");
@@ -10,11 +10,15 @@ $(document).on("load", function () {
     $("#signUpModal").modal();
   });
 
-  $("#signUpBtn").on("click", function () {
+  $("#signUpBtn").on("click", function (e) {
     e.preventDefault();
-    console.log(this);
-    // if (validateSignUpInputs() == false) {
-    // }
+    if (validateSignUpInputs() == false) {
+      $(".error").text("");
+      $("#signUpModal").modal("hide");
+      $("#verifyOtp").modal("show");
+      const signupData = fetchSignUpData();
+      $.post(`/send-otp/${signupData["phone_num"]}`);
+    }
   });
 
   $("#loginBtn").on("click", function (e) {
@@ -25,21 +29,21 @@ $(document).on("load", function () {
 
   $("#verify").on("click", function (e) {
     e.preventDefault();
-    if (validateOTPInputs() == false) {
+    if (validateOtp() == false) {
+      const signupData = fetchSignUpData();
+      const otp = $("#otp").val();
+      $.ajax({
+        url: `/verify-otp?phone_num=${signupData["phone_num"]}&otp=${otp}`,
+        type: "post",
+        data: "",
+        success: function (result) {
+          if (result == true) {
+          }
+        },
+      });
     }
   });
 });
-
-function validateOTPInputs() {
-  var errorFlag = false;
-
-  var emailValue = $("#opt").val();
-  if (emailValue === "") {
-    $("#opt").next(".error").text("OPT is required.");
-    errorFlag = true;
-  }
-  return errorFlag;
-}
 
 function validateLoginInputs() {
   var errorFlag = false;
@@ -95,5 +99,34 @@ function validateSignUpInputs() {
     errorFlag = true;
   }
 
-  return false;
+  var state = $("#inputState").val();
+  if (state === "Not_State") {
+    $("#inputState").next(".error").text("Enter your state.");
+    errorFlag = true;
+  }
+
+  return errorFlag;
+}
+
+function fetchSignUpData() {
+  const signupData = {
+    first_name: $("#inputFirstName").val(),
+    last_name: $("#inputLastName").val(),
+    phone_num: $("#phnNo").val(),
+    password: $("#inputPassword").val(),
+    confirm_password: $("#inputConfirmPassword").val(),
+    state: $("#inputState").val(),
+  };
+
+  return signupData;
+}
+
+function validateOtp() {
+  const errorFlag = false;
+  let otp = $("#opt").val();
+  if (otp === "") {
+    $("#otp").next(".error").text("Invalid OTP!");
+    errorFlag = true;
+  }
+  return errorFlag;
 }

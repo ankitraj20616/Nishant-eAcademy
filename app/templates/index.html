@@ -165,7 +165,7 @@
                       type="email"
                       class="form-control"
                       id="inputFirstName"
-                      placeholder="inputFirstName"
+                      placeholder="First Name"
                     />
                     <span class="error"></span>
                   </div>
@@ -177,7 +177,7 @@
                       type="text"
                       class="form-control"
                       id="inputLastName"
-                      placeholder="inputLastName"
+                      placeholder="Last Name"
                     />
                     <span class="error"></span>
                   </div>
@@ -212,7 +212,7 @@
                       >State<span class="red">*</span></label
                     >
                     <select id="inputState" class="form-control">
-                      <option selected>Choose...</option>
+                      <option value="Not_State">Choose...</option>
                       <option value="Bihar">Bihar</option>
                       <option value="Jharkhand">Jharkhand</option>
                       <option value="UP">UP</option>
@@ -319,7 +319,7 @@
       <div
         class="modal fade"
         id="verifyOtp"
-        tabindex="-1"
+        tabindex="-20"
         role="dialog"
         aria-labelledby="verifyOtp"
         aria-hidden="true"
@@ -335,18 +335,17 @@
                   data-dismiss="modal"
                   aria-label="Close"
                 >
-                  <span aria-hidden="true">&times;</span>
+                  <span aria-hidden="true" id="otpModalClose">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
                 <div class="form-group">
                   <label for="opt">OTP<span class="red">*</span></label>
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
-                    id="opt"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
+                    id="otp"
+                    placeholder="Enter OTP"
                   />
                   <span class="error"></span>
                 </div>
@@ -355,6 +354,7 @@
                 <button
                   type="button"
                   class="btn btn-secondary"
+                  id="closeOtpModal"
                   data-dismiss="modal"
                 >
                   Close
