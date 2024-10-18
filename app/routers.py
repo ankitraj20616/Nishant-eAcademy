@@ -8,16 +8,45 @@ from utils import PasswordHashing
 from random import randint
 from config import setting
 from twilio.rest import Client
-
+from auth import JWTAuth
+from datetime import timedelta
 
 router = APIRouter()
 password_operations = PasswordHashing()
+jwt_authentication = JWTAuth()
 
 TWILIO_ACC_SID = setting.TWILIO_ACC_SID
 TWILIO_AUTH_TOKEN = setting.TWILIO_AUTH_TOKEN
 TWILIO_PHONE_NUMBER = setting.TWILIO_PHONE_NUMBER
 
 twilio_client = Client(TWILIO_ACC_SID, TWILIO_AUTH_TOKEN)
+
+
+
+@router.post("/jwt_token")
+async def loginJWTToken(login_data: UserLogin, db: Session = Depends(get_db)):
+    students = db.query(Students).all()
+    for student in students:
+        if student.phone_num == login_data.phone_num and password_operations.verifyPassword(student.password, login_data.password):
+            expire_time = timedelta(minutes= setting.ASCESS_TOKEN_EXPIRE_MINUTES)
+            jwt_token = jwt_authentication.generateAccessToken({"phone_num": student.phone_num}, expire_time)
+            return jwt_token
+    raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED,
+                        detail= "Incorrect Phone number or Password")
+
+@router.post("/routeProtected/{token}")
+def routeProtected(token: str):
+    phone_num = jwt_authentication.verifyToken(token)
+    if not phone_num:
+        raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED, detail= "Invalid token!")
+    return {"message": f"Hello, {phone_num}. You have accessed a protected route."}
+
+@router.post("/login")
+async def logIn(login_data: UserLogin, db: Session = Depends(get_db)):
+    login_data.phone_num = "+91" + login_data.phone_num
+    token = await loginJWTToken(login_data= login_data, db= db)
+    message = routeProtected(token= token)
+    return message
 
 
 @router.post("/signUp")

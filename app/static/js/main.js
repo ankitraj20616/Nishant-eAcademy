@@ -24,6 +24,22 @@ $(window).on("load", function () {
   $("#loginBtn").on("click", function (e) {
     e.preventDefault();
     if (validateLoginInputs() == false) {
+      const logInData = fetchLogInData();
+      $.ajax({
+        url: "/login",
+        type: "post",
+        contentType: "application/json",
+        data: JSON.stringify({
+          phone_num: logInData["phone_num"],
+          password: logInData["password"],
+        }),
+        success: function () {
+          alert(`${logInData["phone_num"]}, You loged in successful.`);
+        },
+        error: function (error) {
+          alert(`Log In Error : ${error.responseText}`);
+        },
+      });
     }
   });
 
@@ -72,12 +88,9 @@ $(window).on("load", function () {
 function validateLoginInputs() {
   var errorFlag = false;
 
-  var emailValue = $("#loginEmail").val();
-  if (emailValue === "") {
-    $("#loginEmail").next(".error").text("Email ID is required.");
-    errorFlag = true;
-  } else if (IsEmail(emailValue) === false) {
-    $("#loginEmail").next(".error").text("Entered Email is not Valid!!");
+  var phoneNumber = $("#phoneNumber").val();
+  if (phoneNumber === "") {
+    $("#phoneNumber").next(".error").text("Phone Number is required.");
     errorFlag = true;
   }
   return errorFlag;
@@ -153,4 +166,12 @@ function validateOtp() {
     errorFlag = true;
   }
   return errorFlag;
+}
+
+function fetchLogInData() {
+  const logInData = {
+    phone_num: $("#phoneNumber").val(),
+    password: $("#loginPassword").val(),
+  };
+  return logInData;
 }
