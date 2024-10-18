@@ -38,9 +38,33 @@ $(window).on("load", function () {
         data: "",
         success: function (result) {
           if (result == true) {
+            $.ajax({
+              url: "/signUp",
+              type: "post",
+              data: JSON.stringify({
+                first_name: signupData["first_name"],
+                last_name: signupData["last_name"],
+                phone_num: signupData["phone_num"],
+                password: signupData["password"],
+                confirm_password: signupData["confirm_password"],
+                state: signupData["state"],
+              }),
+              contentType: "application/json",
+              success: function () {
+                alert("Sign Up Completed!");
+              },
+              error: function (error) {
+                alert("Error occured: " + error.responseText);
+              },
+            });
           }
         },
+        error: function (error) {
+          alert("Error occured: " + error.responseText);
+        },
       });
+    } else {
+      alert("Invalid Otp!");
     }
   });
 });
@@ -122,8 +146,8 @@ function fetchSignUpData() {
 }
 
 function validateOtp() {
-  const errorFlag = false;
-  let otp = $("#opt").val();
+  let errorFlag = false;
+  let otp = $("#otp").val();
   if (otp === "") {
     $("#otp").next(".error").text("Invalid OTP!");
     errorFlag = true;
