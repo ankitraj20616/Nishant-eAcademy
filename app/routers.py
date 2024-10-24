@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from database import get_db
 from sqlalchemy.orm import Session
-from schemas import UserSignUp, UserLogin
-from store import Students, OTPStore
+from schemas import UserSignUp, UserLogin, CourseSchema
+from store import Users, OTPStore, Courses as CourseTable
 from starlette import status
 from utils import PasswordHashing
 from random import randint
@@ -25,34 +25,36 @@ twilio_client = Client(TWILIO_ACC_SID, TWILIO_AUTH_TOKEN)
 
 @router.post("/jwt_token")
 async def loginJWTToken(login_data: UserLogin, db: Session = Depends(get_db)):
-    students = db.query(Students).all()
+    students = db.query(Users).all()
     for student in students:
         if student.phone_num == login_data.phone_num and password_operations.verifyPassword(student.password, login_data.password):
             expire_time = timedelta(minutes= setting.ASCESS_TOKEN_EXPIRE_MINUTES)
-            jwt_token = jwt_authentication.generateAccessToken({"phone_num": student.phone_num}, expire_time)
+            jwt_token = jwt_authentication.generateAccessToken({"phone_num": student.phone_num, 
+                                                                "role": student.role}, 
+                                                                expire_time)
             return jwt_token
     raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED,
                         detail= "Incorrect Phone number or Password")
 
 @router.post("/routeProtected/{token}")
 def routeProtected(token: str):
-    phone_num = jwt_authentication.verifyToken(token)
-    if not phone_num:
+    payload: dict = jwt_authentication.verifyToken(token)
+    if not payload or not payload.get("phone_num"):
         raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED, detail= "Invalid token!")
-    return {"message": f"Hello, {phone_num}. You have accessed a protected route."}
+    return {"message": f"Hello, {payload.get('phone_num')}. You have accessed a protected route."}
 
 @router.post("/login")
 async def logIn(login_data: UserLogin, db: Session = Depends(get_db)):
     login_data.phone_num = "+91" + login_data.phone_num
     token = await loginJWTToken(login_data= login_data, db= db)
     message = routeProtected(token= token)
-    return message
+    return {"access_token": token, "message": message}
 
 
 @router.post("/signUp")
 async def signUp(new_student: UserSignUp,db: Session = Depends(get_db)):
     new_student.phone_num = "+91" + new_student.phone_num
-    is_already_registered = db.query(Students).filter(new_student.phone_num == Students.phone_num).first()
+    is_already_registered = db.query(Users).filter(new_student.phone_num == Users.phone_num).first()
     if is_already_registered:
         raise HTTPException(status_code= status.HTTP_400_BAD_REQUEST, detail= "This phone number has be registered!")
     elif new_student.password != new_student.confirm_password:
@@ -60,13 +62,14 @@ async def signUp(new_student: UserSignUp,db: Session = Depends(get_db)):
     
     new_student.password = password_operations.hashPassword(new_student.password)
     new_student.confirm_password = password_operations.hashPassword(new_student.confirm_password)
-    new_student = Students(
+    new_student = Users(
         phone_num = new_student.phone_num,
         first_name =  new_student.first_name,
         last_name = new_student.last_name,
         password = new_student.password,
         confirm_password = new_student.confirm_password,
-        state = new_student.state
+        state = new_student.state,
+        role = new_student.role
     )
 
     db.add(new_student)
@@ -126,3 +129,48 @@ async def verify_otp(phone_num: str, otp: str, db: Session = Depends(get_db)):
     db.delete(verification_record)
     db.commit()
     return True
+
+
+@router.get("/fetch-courses-details")
+async def fetchAllCourses(db: Session = Depends(get_db)):
+    return db.query(CourseTable).all()
+
+
+
+@router.post("/add-new-course", response_model=CourseSchema)
+async def addNewCourse(course_details: CourseSchema, db: Session = Depends(get_db)):
+    try:
+        new_course = CourseTable(
+            name = course_details.name,
+            cost = course_details.cost,
+            validity = course_details.validity,
+            description = course_details.description,
+            features = course_details.features,
+            content = course_details.content,
+            content_language = course_details.content_language 
+        )
+        db.add(new_course)
+        db.commit()
+        return course_details
+    except Exception as e:
+        raise HTTPException(status_code= status.HTTP_500_INTERNAL_SERVER_ERROR, detail= f"Error occured:- {e}")
+    
+@router.get("/course/{name}")
+async def searchCourseByName(name: str, db: Session = Depends(get_db)):
+    all_courses = await fetchAllCourses(db = db)
+    if not all_courses:
+        return {"message": "No courses available."}
+    for course in all_courses:
+        if course.name.lower() == name.lower():
+            return course
+    return {"message": f"{name} course not available."}
+
+@router.get("/course/{id}")
+async def searchCourseById(id: int, db: Session = Depends(get_db)):
+    all_courses = await fetchAllCourses(db = db)
+    if not all_courses:
+        return {"message": "No courses available."}
+    for course in all_courses:
+        if course.id == id:
+            return course
+    return {"message": f"Course with {id} not available."}

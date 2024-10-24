@@ -27,6 +27,6 @@ class JWTAuth:
             phone_num: str = payload.get("phone_num")
             if phone_num is None:
                 raise HTTPException(status_code= status.HTTP_502_BAD_GATEWAY, detail= "JWT Token Error.")
-            return phone_num
+            return payload
         except:
             return None
