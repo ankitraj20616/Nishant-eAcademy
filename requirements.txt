@@ -7,3 +7,5 @@ passlib>=1.7.0
 cryptography>=40.0.0
 bcrypt>=3.2.0
 twilio>=9.3.0
+python-jose>=2.0.0
+pyjwt>=1.4.0

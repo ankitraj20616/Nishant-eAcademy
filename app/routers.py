@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response, Cookie
 from database import get_db
 from sqlalchemy.orm import Session
 from schemas import UserSignUp, UserLogin, CourseSchema
@@ -10,6 +10,8 @@ from config import setting
 from twilio.rest import Client
 from auth import JWTAuth
 from datetime import timedelta
+from typing import Annotated
+
 
 router = APIRouter()
 password_operations = PasswordHashing()
@@ -37,17 +39,22 @@ async def loginJWTToken(login_data: UserLogin, db: Session = Depends(get_db)):
                         detail= "Incorrect Phone number or Password")
 
 @router.post("/routeProtected/{token}")
-def routeProtected(token: str):
-    payload: dict = jwt_authentication.verifyToken(token)
+def routeProtected(jwt_token: str = Cookie(None)):
+    payload: dict = jwt_authentication.verifyToken(jwt_token)
     if not payload or not payload.get("phone_num"):
         raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED, detail= "Invalid token!")
     return {"message": f"Hello, {payload.get('phone_num')}. You have accessed a protected route."}
 
 @router.post("/login")
-async def logIn(login_data: UserLogin, db: Session = Depends(get_db)):
+async def logIn(response: Response, login_data: UserLogin, db: Session = Depends(get_db)):
     login_data.phone_num = "+91" + login_data.phone_num
     token = await loginJWTToken(login_data= login_data, db= db)
-    message = routeProtected(token= token)
+    response.set_cookie(
+        key="jwt_token",
+        value= token,
+        httponly= True
+    )
+    message = routeProtected(token)
     return {"access_token": token, "message": message}
 
 
@@ -138,7 +145,17 @@ async def fetchAllCourses(db: Session = Depends(get_db)):
 
 
 @router.post("/add-new-course", response_model=CourseSchema)
-async def addNewCourse(course_details: CourseSchema, db: Session = Depends(get_db)):
+async def addNewCourse(course_details: CourseSchema, db: Session = Depends(get_db)
+                       , jwt_token: str = Cookie(None)):
+    
+    if not jwt_token:
+        raise HTTPException(status_code= status.HTTP_401_UNAUTHORIZED, detail= "Invalid token!")
+    payload = jwt_authentication.verifyToken(jwt_token)
+    if not payload or not payload.get("phone_num"):
+        raise HTTPException(status_code= status.HTTP_403_FORBIDDEN, detail= "Invalid token, payload error")
+    role = payload.get("role")
+    if role != "instructor" and role != "admin":
+        raise HTTPException(status_code= status.HTTP_403_FORBIDDEN, detail= "Access denied, Only instructors/admin can add new courses.")
     try:
         new_course = CourseTable(
             name = course_details.name,

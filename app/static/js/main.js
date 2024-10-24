@@ -154,7 +154,7 @@ function fetchSignUpData() {
     password: $("#inputPassword").val(),
     confirm_password: $("#inputConfirmPassword").val(),
     state: $("#inputState").val(),
-    role: $("#roleSignUp").val(),
+    role: $("#inputRole").val(),
   };
 
   return signupData;

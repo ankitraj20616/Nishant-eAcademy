@@ -10,7 +10,6 @@ class UserLogin(BaseModel):
             "example": {
                 "phone_num": "Phone number of User",
                 "password": "Password of user",
-                "role": "Student/Instructor/Admin"
             }
         }
 
