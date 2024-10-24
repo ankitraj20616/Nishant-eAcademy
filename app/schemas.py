@@ -9,7 +9,8 @@ class UserLogin(BaseModel):
         json_schema_extra = {
             "example": {
                 "phone_num": "Phone number of User",
-                "password": "Password of user"
+                "password": "Password of user",
+                "role": "Student/Instructor/Admin"
             }
         }
 
@@ -20,6 +21,7 @@ class UserSignUp(BaseModel):
     password: str
     confirm_password: str
     state: str
+    role: str
 
     class Config:
         json_schema_extra ={
@@ -29,8 +31,32 @@ class UserSignUp(BaseModel):
                 "phone_num": "Your Phone Number",
                 "password": "Password You Want To Set",
                 "confirm_password": "Re Enter Same Password",
-                "state": "Enter The State Name You Lived In"
+                "state": "Enter The State Name You Lived In",
+                "role": "Student/Instructor/Admin"
             }
         }
 
+
+class CourseSchema(BaseModel):
+    name: str
+    cost: int
+    validity: str
+    description: str
+    features: str
+    content: str
+    content_language: str
+
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "name": "Name of course",
+                "cost": "Cost of course",
+                "validity": "Course validity time duration.",
+                "description": "Description of course",
+                "features": "Features course contain",
+                "content": "Overview of course content",
+                "content_language": "Course content language"
+            }
+        }
+    }
 

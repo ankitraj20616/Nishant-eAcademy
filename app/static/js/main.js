@@ -64,6 +64,7 @@ $(window).on("load", function () {
                 password: signupData["password"],
                 confirm_password: signupData["confirm_password"],
                 state: signupData["state"],
+                role: signupData["role"],
               }),
               contentType: "application/json",
               success: function () {
@@ -153,6 +154,7 @@ function fetchSignUpData() {
     password: $("#inputPassword").val(),
     confirm_password: $("#inputConfirmPassword").val(),
     state: $("#inputState").val(),
+    role: $("#roleSignUp").val(),
   };
 
   return signupData;
