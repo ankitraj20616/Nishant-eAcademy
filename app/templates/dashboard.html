@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&family=Be+Vietnam+Pro:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
+    />
+    <title>Code eAcademy</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{url_for('static', path='images/logo.png')}}"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden"
+      style="font-family: 'Be Vietnam Pro', 'Noto Sans', sans-serif"
+    >
+      <div class="layout-container flex h-full grow flex-col">
+        <header
+          class="flex items-center justify-between border-b border-[#f0f2f4] px-10 py-3"
+        >
+          <div class="flex items-center gap-4 text-[#111418]">
+            <div class="size-4">
+              <!-- SVG Icon -->
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-[#111418] text-lg font-bold">Code eAcademy</h2>
+          </div>
+          <!-- Navigation Links -->
+          <div class="flex flex-1 justify-end gap-8">
+            <a class="text-[#111418] text-sm font-medium" href="#">Courses</a>
+            <a class="text-[#111418] text-sm font-medium" href="#"
+              >Your Courses</a
+            >
+            <a class="text-[#111418] text-sm font-medium" href="#"
+              >Exam Updates</a
+            >
+            <a class="text-[#111418] text-sm font-medium" href="#">Resources</a>
+            <a class="text-[#111418] text-sm font-medium" href="#">Profile</a>
+          </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div
+            class="layout-content-container flex flex-col max-w-[960px] flex-1"
+          >
+            <div class="flex flex-wrap justify-between gap-3 p-4">
+              <p class="text-[#111418] text-4xl font-black">
+                Learn the skills you need to succeed
+              </p>
+            </div>
+            <div class="flex justify-stretch">
+              <!-- Add Course Button -->
+              <button
+                id="addCourseBtn"
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#1980e6] text-white text-sm font-bold"
+              >
+                <span class="truncate">Add Course</span>
+              </button>
+            </div>
+
+            <!-- Courses List -->
+            <div
+              class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4"
+            >
+              <!-- Course Items... -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Structure -->
+      <div
+        id="addCourseModal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50"
+      >
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm">
+          <h2 class="text-lg font-bold mb-4">Add a New Course</h2>
+          <p class="text-sm">Course details can be added here.</p>
+          <button
+            id="closeModalBtn"
+            class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="{{url_for('static', path='js/dashboard.js')}}"></script>
+    <!-- <script src="E:\git\Nishant-eAcademy\app\static\js\dashboard.js"></script> -->
+  </body>
+</html>

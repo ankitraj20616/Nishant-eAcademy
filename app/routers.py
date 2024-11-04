@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Response, Cookie
+from fastapi import APIRouter, Depends, HTTPException, Response, Cookie, Request
 from database import get_db
 from sqlalchemy.orm import Session
 from schemas import UserSignUp, UserLogin, CourseSchema
@@ -10,7 +10,8 @@ from config import setting
 from twilio.rest import Client
 from auth import JWTAuth
 from datetime import timedelta
-from typing import Annotated
+
+
 
 
 router = APIRouter()
@@ -137,6 +138,11 @@ async def verify_otp(phone_num: str, otp: str, db: Session = Depends(get_db)):
     db.commit()
     return True
 
+
+@router.get("/dash-board")
+async def openDashBoard(request: Request):
+    from main import templates
+    return templates.TemplateResponse("dashboard.html", {"request": request})
 
 @router.get("/fetch-courses-details")
 async def fetchAllCourses(db: Session = Depends(get_db)):

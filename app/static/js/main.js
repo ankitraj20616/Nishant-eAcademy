@@ -21,8 +21,9 @@ $(window).on("load", function () {
     }
   });
 
-  $("#loginBtn").on("click", function (e) {
+  $(document).on("click", "#loginBtn", function (e) {
     e.preventDefault();
+
     if (validateLoginInputs() == false) {
       const logInData = fetchLogInData();
       $.ajax({
@@ -34,7 +35,8 @@ $(window).on("load", function () {
           password: logInData["password"],
         }),
         success: function () {
-          alert(`${logInData["phone_num"]}, You loged in successful.`);
+          console.log("Logedin");
+          window.location.href = "/dash-board";
         },
         error: function (error) {
           alert(`Log In Error : ${error.responseText}`);
